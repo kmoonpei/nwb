@@ -16,13 +16,11 @@ import webpackBuild from './webpackBuild'
 import {createBanner, createExternals, logGzippedFileSizes} from './webpackUtils'
 
 // These match DEFAULT_TEST_DIRS and DEFAULT_TEST_FILES for co-located tests in
-// ./createKarmaConfig.js; unfortunately Babel doesn't seem to support reusing
-// the same patterns.
+// ./createKarmaConfig.js
 const DEFAULT_BABEL_IGNORE_CONFIG = [
-  '.spec.js',
-  '.test.js',
-  '-test.js',
-  '/__tests__/'
+  '**/*.spec.js',
+  '**/*.test.js',
+  '**/__tests__/'
 ]
 
 /**
@@ -139,10 +137,10 @@ export default function moduleBuild(args, buildConfig = {}, cb) {
       'ES5',
       {copyFiles, outDir: path.resolve('lib'), src},
       merge(buildConfig.babel, buildConfig.babelDev || {}, {
-        // Don't force CommonJS users of the CommonJS build to eat a .require
-        commonJSInterop: true,
         // Transpile modules to CommonJS
         modules: 'commonjs',
+        // Don't force CommonJS users of the CommonJS build to eat a .default
+        commonJSInterop: true,
         // Don't set the path to nwb's babel-runtime, as it will need to be a
         // peerDependency of your module if you use transform-runtime's helpers
         // option.

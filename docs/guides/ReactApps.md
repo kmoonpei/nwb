@@ -62,7 +62,7 @@ nwb-thinking-in-react/
     react.svg
   tests/
     .eslintrc
-    App-test.js
+    App.test.js
 ```
 
 **dist/**: When you run a build, output will be generated in the `dist/` directory, ready for deployments.
